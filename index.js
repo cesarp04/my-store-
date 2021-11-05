@@ -2,6 +2,7 @@ const express = require('express');
 const routerApi = require('./routes/index.routes')
 
 const app = express();
+const port = 3010;
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -13,6 +14,6 @@ app.get('/nueva-ruta', (req, res) => {
 
 routerApi(app);
 
-app.listen(3000, () => {
-  console.log('Example app listening on port 3000!');
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
