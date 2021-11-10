@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
   res.json({
     id,
     name: 'Product 2',
-    price: 2000
+    price: 2000,
   });
 });
 
@@ -34,7 +34,25 @@ router.post('/', (req, res) => {
   const body = req.body;
   res.json({
     message: 'Product created',
-    data: body
+    data: body,
+  });
+});
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'Product Updated',
+    data: body,
+    id,
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  res.json({
+    message: 'Product Deleted',
+    id,
   });
 });
 
