@@ -1,4 +1,5 @@
 const faker = require('faker');
+const boom = require('boom');
 
 class ProductsService {
   constructor() {
@@ -14,6 +15,7 @@ class ProductsService {
         name: faker.commerce.productName(),
         price: parseInt(faker.commerce.price(), 10),
         image: faker.image.imageUrl(),
+        isBlocked: faker.datatype.boolean(),
       });
     }
   }
@@ -34,19 +36,25 @@ class ProductsService {
   }
 
   async getProductById(id) {
-    const name = this.getTotal();
-    return this.products.find((item) => item.id === id);
+    const product = this.products.find((item) => item.id === id);
+    if (!product) {
+      throw boom.notFound('Product not found');
+    }
+    if (product.isBlocked) {
+      throw boom.forbidden('Product is blocked');
+    }
+    return product;
   }
 
   async updateProduct(id, product) {
     const index = this.products.findIndex((item) => item.id === id);
     if (index < 0) {
-      throw new Error('Product not found');
+      throw boom.notFound('Product not found');
     }
     const updatedProduct = this.products[index];
     this.products[index] = {
       ...updatedProduct,
-      ...product
+      ...product,
     };
     return this.products[index];
   }
@@ -54,7 +62,7 @@ class ProductsService {
   async deleteProduct(id) {
     const index = this.products.findIndex((item) => item.id === id);
     if (index < 0) {
-      throw new Error('Product not found');
+      throw boom.notFound('Product not found');
     }
     this.products.splice(index, 1);
     return {
