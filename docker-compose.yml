@@ -3,6 +3,7 @@ version: '3.3'
 services:
   postgres:
     image: postgres:13
+    container_name: mystore-postgres
     environment:
       POSTGRES_USER: cesar
       POSTGRES_PASSWORD: admin123
