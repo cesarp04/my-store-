@@ -9,7 +9,7 @@ const {
 } = require('./middlewares/error.handler');
 
 const app = express();
-const port = process.env.PORT || 3010;
+const port = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
