@@ -5,17 +5,21 @@ class UserService {
   constructor() {}
 
   async createUser(data) {
-    return data;
+    const user = await User.create(data);
+    return user;
   }
 
   async getUsers() {
-    User.findAll().then(users => {
-      return users;
-    });
+    const users = await User.findAll();
+    return users;
   }
 
   async getUserById(id) {
-    return { id };
+    const user = await User.findByPk(id);
+    if (!user) {
+      throw boom.notFound('User not found');
+    }
+    return user;
   }
 
   async updateUser(id, changes) {
