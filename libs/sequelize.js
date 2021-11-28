@@ -13,6 +13,6 @@ const sequelize = new Sequelize(URI, {
   logging: console.log,
 });
 
-console.log('Connected to database');
+console.log(`Connected to database ${DB_NAME}`);
 
 module.exports = sequelize;
